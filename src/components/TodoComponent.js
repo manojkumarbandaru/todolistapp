@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import '../cssfiles/TodoComponent.css'
 class Todo extends Component {
 
     constructor(props) {
@@ -30,7 +30,8 @@ class Todo extends Component {
                 date: new Date()
             }]
         }
-        this.onSubmitHandle=this.onSubmitHandle.bind(this)
+        this.onSubmitHandle = this.onSubmitHandle.bind(this)
+        this.handleUpdate = this.handleUpdate.bind(this)
     }
 
     onSubmitHandle(event) {
@@ -48,14 +49,59 @@ class Todo extends Component {
         event.target.item.value = '';
     }
 
+    handleEdit(ID, Title) {
+        this.setState({
+            edit: true,
+            id: ID,
+            title: Title
+        })
+    }
+    renderUpdate() {
+        if (this.state.edit) {
+            return (
+                <form onSubmit={this.handleUpdate}>
+                    <input type="text" name="updateItem" defaultValue={this.state.title} />
+                    <button>Update</button>
+                </form>
+            )
+        }
+    }
+    handleUpdate(event) {
+        event.preventDefault();
 
+        this.setState({
+            edit:false,
+            mockData: this.state.mockData.map(
+                item => {
+                    if (item.id === this.state.id) {
+                        console.log(item.id + " " + event.target.updateItem.value);
+                        item.title = event.target.updateItem.value;
+                        return item;
+                    }
+                    return item;
+                }
+            ),
+        },()=>console.log(this.state.edit))
+
+    }
     render() {
         return (
             <div>
+                {
+                    this.renderUpdate()
+                }
                 <form onSubmit={this.onSubmitHandle}>
-                    <input type="text" name="item" className="item" placeholder="enter TODO"/>
+                    <input type="text" name="item" className="item" placeholder="enter TODO" />
                     <button>Add</button>
                 </form>
+                <ul className="todoList">
+                    {this.state.mockData.map(item => (
+                        <li key={item.id}>
+                            {item.title}
+                            <button onClick={this.handleEdit.bind(this, item.id, item.title)}>Edit</button>
+                        </li>
+                    ))}
+                </ul>
             </div>
         );
     }
