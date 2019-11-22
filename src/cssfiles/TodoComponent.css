@@ -10,6 +10,9 @@
     color: white;
 }
 .completeButton{
-    background-color:springgreen ;
+    background-color:green ;
     color: white;
+}
+.done {
+      text-decoration: line-through;
 }
