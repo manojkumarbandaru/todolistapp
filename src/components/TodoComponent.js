@@ -30,7 +30,7 @@ class Todo extends Component {
                 date: new Date()
             }]
         }
-        this.onSubmitHandle=this.onSubmitHandle.bind(this)
+
     }
 
     onSubmitHandle(event) {
@@ -52,13 +52,30 @@ class Todo extends Component {
     render() {
         return (
             <div>
-                <form onSubmit={this.onSubmitHandle}>
-                    <input type="text" name="item" className="item" placeholder="enter TODO"/>
+                <form onSubmit={this.onSubmitHandle.bind(this)}>
+                    <input type="text" name="item" placeholder="enter TODO" />
                     <button>Add</button>
                 </form>
+                <ul>
+                    {this.state.mockData.map(item => (
+                        <li key={item.id} className={item.done ? 'done' : 'hidden'}
+                        >
+                            {item.title}
+                            <button onClick = {this.onDeleteHandle.bind(this, item.id)}>Delete</button>
+
+
+                        </li>
+                    ))}
+                </ul>
             </div>
         );
     }
+
+    onDeleteHandle() {
+        let id = arguments[0];
+        this.setState({ mockData: this.state.mockData.filter(item => { if (item.id !== id) { return item; } }) });
+    }
+
 }
 
 export default Todo;
