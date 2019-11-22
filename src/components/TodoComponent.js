@@ -96,15 +96,22 @@ class Todo extends Component {
                 </form>
                 <ul className="todoList">
                     {this.state.mockData.map(item => (
-                        <li key={item.id}>
+                        <li key={item.id} className={item.done ? 'done' : 'hidden'}>
                             {item.title}
                             <button onClick={this.handleEdit.bind(this, item.id, item.title)}>Edit</button>
+                            <button onClick = {this.onDeleteHandle.bind(this, item.id)}>Delete</button>
                         </li>
                     ))}
                 </ul>
             </div>
         );
     }
+
+    onDeleteHandle() {
+        let id = arguments[0];
+        this.setState({ mockData: this.state.mockData.filter(item => { if (item.id !== id) { return item; } }) });
+    }
+
 }
 
 export default Todo;
