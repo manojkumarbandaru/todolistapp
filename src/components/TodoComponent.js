@@ -100,6 +100,7 @@ class Todo extends Component {
                             {item.title}
                             <button onClick={this.handleEdit.bind(this, item.id, item.title)}>Edit</button>
                             <button onClick = {this.onDeleteHandle.bind(this, item.id)} className="deleteButton">Delete</button>
+                            <button onClick={this.onCompleteHandle.bind(this, item.id)} className = "completeButton">Complete</button>
                         </li>
                     ))}
                 </ul>
@@ -109,7 +110,20 @@ class Todo extends Component {
 
     onDeleteHandle() {
         let id = arguments[0];
-        this.setState({ mockData: this.state.mockData.filter(item => { if (item.id !== id) { return item; } }) });
+        this.setState({
+             mockData: this.state.mockData.filter(item => { if (item.id !== id) { return item; } }) 
+            });
+    }
+    onCompleteHandle() {
+        let id = arguments[0];
+        this.setState({
+            mockData: this.state.mockData.map(item => {
+                if (item.id === id) { item['done'] = true; 
+                return item;
+             }
+                return item;
+            })
+        });
     }
 
 }
