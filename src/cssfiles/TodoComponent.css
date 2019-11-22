@@ -1,3 +1,15 @@
 .todoList{
     list-style-type: none;
 }
+.updateButton{
+    background-color: green;
+    color: white;
+}
+.deleteButton{
+    background-color:tomato;
+    color: white;
+}
+.completeButton{
+    background-color:springgreen ;
+    color: white;
+}

@@ -61,7 +61,7 @@ class Todo extends Component {
             return (
                 <form onSubmit={this.handleUpdate}>
                     <input type="text" name="updateItem" defaultValue={this.state.title} />
-                    <button>Update</button>
+                    <button className="updateButton">Update</button>
                 </form>
             )
         }
@@ -99,7 +99,7 @@ class Todo extends Component {
                         <li key={item.id} className={item.done ? 'done' : 'hidden'}>
                             {item.title}
                             <button onClick={this.handleEdit.bind(this, item.id, item.title)}>Edit</button>
-                            <button onClick = {this.onDeleteHandle.bind(this, item.id)}>Delete</button>
+                            <button onClick = {this.onDeleteHandle.bind(this, item.id)} className="deleteButton">Delete</button>
                         </li>
                     ))}
                 </ul>
